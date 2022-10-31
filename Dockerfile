@@ -1,13 +1,13 @@
-# Original credit: https://github.com/jpetazzo/dockvpn
+# Original credits:
+# - https://github.com/jpetazzo/dockvpn
+# - https://github.com/kylemanna/docker-openvpn
 
 # Smallest base image
-FROM alpine:latest
+FROM alpine:3.16
 
-LABEL maintainer="Kyle Manna <kyle@kylemanna.com>"
+LABEL org.opencontainers.image.authors="alikasundara <https://github.com/alikasundara>"
 
-# Testing: pamtester
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
-    apk add --update openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester libqrencode && \
+RUN apk add --update --no-cache openssl=1.1.1q-r0 openvpn=2.5.6-r1 iptables=1.8.8-r1 easy-rsa=3.0.8-r0 openvpn-auth-pam=2.5.6-r1 google-authenticator=1.09-r1 libqrencode=4.1.1-r0 bash=5.1.16-r2 && \
     ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
