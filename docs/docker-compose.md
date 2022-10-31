@@ -8,7 +8,7 @@ services:
   openvpn:
     cap_add:
      - NET_ADMIN
-    image: kylemanna/openvpn
+    image: alikasundara/openvpn:2.5.6-r1
     container_name: openvpn
     ports:
      - "1194:1194/udp"

@@ -1,21 +1,16 @@
 # OpenVPN for Docker
 
-[![Build Status](https://travis-ci.org/kylemanna/docker-openvpn.svg)](https://travis-ci.org/kylemanna/docker-openvpn)
-[![Docker Stars](https://img.shields.io/docker/stars/kylemanna/openvpn.svg)](https://hub.docker.com/r/kylemanna/openvpn/)
-[![Docker Pulls](https://img.shields.io/docker/pulls/kylemanna/openvpn.svg)](https://hub.docker.com/r/kylemanna/openvpn/)
-[![ImageLayers](https://images.microbadger.com/badges/image/kylemanna/openvpn.svg)](https://microbadger.com/#/images/kylemanna/openvpn)
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkylemanna%2Fdocker-openvpn.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkylemanna%2Fdocker-openvpn?ref=badge_shield)
-
+[![Docker Stars](https://img.shields.io/docker/stars/alikasundara/openvpn.svg)](https://hub.docker.com/r/alikasundara/openvpn/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/alikasundara/openvpn.svg)](https://hub.docker.com/r/alikasundara/openvpn/)
 
 OpenVPN server in a Docker container complete with an EasyRSA PKI CA.
 
-Extensively tested on [Digital Ocean $5/mo node](http://bit.ly/1C7cKr3) and has
-a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
+Forked from `kylemanna/docker-openvpn`. Real credit for this work goes to `kylemanna`.The original has been extensively tested on [Digital Ocean $5/mo node](http://bit.ly/1C7cKr3) and has a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
 
-#### Upstream Links
+## Upstream Links
 
-* Docker Registry @ [kylemanna/openvpn](https://hub.docker.com/r/kylemanna/openvpn/)
-* GitHub @ [kylemanna/docker-openvpn](https://github.com/kylemanna/docker-openvpn)
+* Docker Registry @ [alikasundara/openvpn](https://hub.docker.com/r/alikasundara/openvpn/)
+* GitHub @ [alikasundara/docker-openvpn](https://github.com/alikasundara/docker-openvpn)
 
 ## Quick Start
 
@@ -31,20 +26,20 @@ a corresponding [Digital Ocean Community Tutorial](http://bit.ly/1AGUZkq).
   private key used by the newly generated certificate authority.
 
       docker volume create --name $OVPN_DATA
-      docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
-      docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn ovpn_initpki
+      docker run -v $OVPN_DATA:/etc/openvpn --rm alikasundara/openvpn ovpn_genconfig -u udp://VPN.SERVERNAME.COM
+      docker run -v $OVPN_DATA:/etc/openvpn --rm -it alikasundara/openvpn ovpn_initpki
 
 * Start OpenVPN server process
 
-      docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN kylemanna/openvpn
+      docker run -v $OVPN_DATA:/etc/openvpn -d -p 1194:1194/udp --cap-add=NET_ADMIN alikasundara/openvpn
 
 * Generate a client certificate without a passphrase
 
-      docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass
+      docker run -v $OVPN_DATA:/etc/openvpn --rm -it alikasundara/openvpn easyrsa build-client-full CLIENTNAME nopass
 
 * Retrieve the client configuration with embedded certificates
 
-      docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
+      docker run -v $OVPN_DATA:/etc/openvpn --rm alikasundara/openvpn ovpn_getclient CLIENTNAME > CLIENTNAME.ovpn
 
 ## Next Steps
 
@@ -69,7 +64,7 @@ If you prefer to use `docker-compose` please refer to the [documentation](docs/d
 
 * Create an environment variable with the name DEBUG and value of 1 to enable debug output (using "docker -e").
 
-        docker run -v $OVPN_DATA:/etc/openvpn -p 1194:1194/udp --cap-add=NET_ADMIN -e DEBUG=1 kylemanna/openvpn
+        docker run -v $OVPN_DATA:/etc/openvpn -p 1194:1194/udp --cap-add=NET_ADMIN -e DEBUG=1 alikasundara/openvpn
 
 * Test using a client that has openvpn installed correctly
 
@@ -87,14 +82,14 @@ If you prefer to use `docker-compose` please refer to the [documentation](docs/d
 
 ## How Does It Work?
 
-Initialize the volume container using the `kylemanna/openvpn` image with the
+Initialize the volume container using the `alikasundara/openvpn` image with the
 included scripts to automatically generate:
 
-- Diffie-Hellman parameters
-- a private key
-- a self-certificate matching the private key for the OpenVPN server
-- an EasyRSA CA key and certificate
-- a TLS auth key from HMAC security
+* Diffie-Hellman parameters
+* a private key
+* a self-certificate matching the private key for the OpenVPN server
+* an EasyRSA CA key and certificate
+* a TLS auth key from HMAC security
 
 The OpenVPN server is started with the default run cmd of `ovpn_run`
 
@@ -103,11 +98,11 @@ declares that directory as a volume. It means that you can start another
 container with the `-v` argument, and access the configuration.
 The volume also holds the PKI keys and certs so that it could be backed up.
 
-To generate a client certificate, `kylemanna/openvpn` uses EasyRSA via the
+To generate a client certificate, `alikasundara/openvpn` uses EasyRSA via the
 `easyrsa` command in the container's path.  The `EASYRSA_*` environmental
 variables place the PKI CA under `/etc/openvpn/pki`.
 
-Conveniently, `kylemanna/openvpn` comes with a script called `ovpn_getclient`,
+Conveniently, `alikasundara/openvpn` comes with a script called `ovpn_getclient`,
 which dumps an inline OpenVPN client configuration file.  This single file can
 then be given to a client for access to the VPN.
 
@@ -131,7 +126,6 @@ directly reachable, since you will try to reach them through the VPN
 and they might not answer to you. If that happens, use public DNS
 resolvers like those of Google (8.8.4.4 and 8.8.8.8) or OpenDNS
 (208.67.222.222 and 208.67.220.220).
-
 
 ## Security Discussion
 
@@ -159,7 +153,6 @@ packets, etc).
 * Assuming the rest of the Docker container's filesystem is secure, TLS + PKI
   security should prevent any malicious host from using the VPN.
 
-
 ## Benefits of Running Inside a Docker Container
 
 ### The Entire Daemon and Dependencies are in the Docker Image
@@ -173,7 +166,7 @@ OpenVPN with latest OpenSSL on Ubuntu 12.04 LTS).
 ### It Doesn't Stomp All Over the Server's Filesystem
 
 Everything for the Docker container is contained in two images: the ephemeral
-run time image (kylemanna/openvpn) and the `$OVPN_DATA` data volume. To remove
+run time image (alikasundara/openvpn) and the `$OVPN_DATA` data volume. To remove
 it, remove the corresponding containers, `$OVPN_DATA` data volume and Docker
 image and it's completely removed.  This also makes it easier to run multiple
 servers since each lives in the bubble of the container (of course multiple IPs
@@ -195,16 +188,26 @@ of a guarantee in the future.
   volume for re-use across containers
 * Addition of tls-auth for HMAC security
 
+## Differences from kylemanna/docker-openvpn
+
+* Predictable build (explicit versioning of packages and the base image),
+* Dropped support for arm64 (might bring it back one day)
+
+## Tested On
+
+* Docker hosts:
+  * Debian Bullseye, with docker 20.10.16
+* Clients
+  * [OpenVPN for Android, Version 0.7.41 (196)](https://f-droid.org/en/packages/de.blinkt.openvpn/)
+  * Arch Linux openvpn 2.5.7-1
+
 ## Originally Tested On
 
 * Docker hosts:
+  * Debian Bullseye, with docker 20.10.16
   * server a [Digital Ocean](https://www.digitalocean.com/?refcode=d19f7fe88c94) Droplet with 512 MB RAM running Ubuntu 14.04
 * Clients
   * Android App OpenVPN Connect 1.1.14 (built 56)
-     * OpenVPN core 3.0 android armv7a thumb2 32-bit
+    * OpenVPN core 3.0 android armv7a thumb2 32-bit
   * OS X Mavericks with Tunnelblick 3.4beta26 (build 3828) using openvpn-2.3.4
   * ArchLinux OpenVPN pkg 2.3.4-1
-
-
-## License
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fkylemanna%2Fdocker-openvpn.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fkylemanna%2Fdocker-openvpn?ref=badge_large)

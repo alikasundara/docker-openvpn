@@ -1,5 +1,7 @@
 # Tests
 
+> The test suite has not been updated for the fork.
+
 Philosophy is to not re-invent the wheel while allowing users to quickly test repository specific tests.
 
 Example invocation from top-level of repository:
@@ -8,11 +10,7 @@ Example invocation from top-level of repository:
     test/run.sh kylemanna/openvpn
     # Be sure to pull kylemanna/openvpn:latest after you're done testing
 
-More details: https://github.com/docker-library/official-images/tree/master/test
-
-## Continuous Integration
-
-The set of scripts defined by `config.sh` are run every time a pull request or push to the repository is made.
+More details: <https://github.com/docker-library/official-images/tree/master/test>
 
 ## Maintenance
 
