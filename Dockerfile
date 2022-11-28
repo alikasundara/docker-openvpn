@@ -3,11 +3,11 @@
 # - https://github.com/kylemanna/docker-openvpn
 
 # Smallest base image
-FROM alpine:3.16
+FROM alpine:3.17
 
 LABEL org.opencontainers.image.authors="alikasundara <https://github.com/alikasundara>"
 
-RUN apk add --update --no-cache openssl=1.1.1q-r0 openvpn=2.5.6-r1 iptables=1.8.8-r1 easy-rsa=3.0.8-r0 openvpn-auth-pam=2.5.6-r1 google-authenticator=1.09-r1 libqrencode=4.1.1-r0 bash=5.1.16-r2 && \
+RUN apk add --update --no-cache openssl=3.0.7-r0 openvpn=2.5.8-r0 iptables=1.8.8-r2 easy-rsa=3.1.1-r0 openvpn-auth-pam=2.5.8-r0 google-authenticator=1.09-r2 libqrencode=4.1.1-r1 bash=5.2.9-r0 && \
     ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
