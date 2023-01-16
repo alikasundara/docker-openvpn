@@ -7,7 +7,7 @@ FROM alpine:3.17
 
 LABEL org.opencontainers.image.authors="alikasundara <https://github.com/alikasundara>"
 
-RUN apk add --update --no-cache openssl=3.0.7-r2 openvpn=2.5.8-r0 iptables=1.8.8-r2 easy-rsa=3.1.1-r0 openvpn-auth-pam=2.5.8-r0 google-authenticator=1.09-r2 libqrencode=4.1.1-r1 bash=5.2.9-r0 && \
+RUN apk add --update --no-cache openssl=3.0.7-r2 openvpn=2.5.8-r0 iptables=1.8.8-r2 easy-rsa=3.1.1-r0 openvpn-auth-pam=2.5.8-r0 google-authenticator=1.09-r2 libqrencode=4.1.1-r1 bash=5.2.15-r0 && \
     ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
     rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
 
