@@ -190,7 +190,7 @@ of a guarantee in the future.
 
 ## Differences from kylemanna/docker-openvpn
 
-- Predictable build (explicit versioning of packages and the base image). One consequence of that is that the build will fail if the explicitly specified versions have already been dropped from alpine repos/.
+- Predictable build (explicit versioning of packages and the base image). One consequence of that is that the build will fail if the explicitly specified versions have already been dropped from alpine repos.
 - Dropped support for arm64 (might bring it back one day)
 
 ## Tested On
