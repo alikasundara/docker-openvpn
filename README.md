@@ -1,5 +1,7 @@
 # OpenVPN for Docker
 
+**As I have now fully migrated to Wireguard, this repo won't be maintained anymore.**
+
 [![Docker Stars](https://img.shields.io/docker/stars/alikasundara/openvpn.svg)](https://hub.docker.com/r/alikasundara/openvpn/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/alikasundara/openvpn.svg)](https://hub.docker.com/r/alikasundara/openvpn/)
 
